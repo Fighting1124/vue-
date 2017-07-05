@@ -1,0 +1,10 @@
+body{
+	background-color: white;
+}
+.router-link-active{
+	color: #007aff;
+}
+#tmpl {
+	margin-top: 40px;
+	margin-bottom: 50px;
+}
