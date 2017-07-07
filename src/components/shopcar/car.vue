@@ -1,6 +1,6 @@
 <template>
     <div id="tmpl">
-    weqeqeqweqeqwewqwe
+    
     </div>
 </template>
 

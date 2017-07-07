@@ -18,7 +18,8 @@ import photoList from "./components/photo/photoList.vue";
 import photoInfo from "./components/photo/photoInfo.vue";
 import goodsList from "./components/goods/goodsList.vue";
 import goodsinfo from "./components/goods/goodsinfo.vue";
-
+import imgdesc from "./components/goods/imgdesc.vue";
+import goodscomment from "./components/goods/goodscomment.vue";
 // 3.0.2 定义路由规则
 var rot = new vueRouter({
 	linkActiveClass:'mui-active',  //改变路由激活时的class名称
@@ -32,6 +33,8 @@ var rot = new vueRouter({
 		{path:"/photo/photoInfo/:id",component:photoInfo},   //图片详情页模块
 		{path:"/goods/goodsList",component:goodsList},    //商品列表购买模块
 		{path:"/goods/goodsinfo/:id",component:goodsinfo},    //商品详情页模块
+		{path:"/goods/imgdesc/:id",component:imgdesc},        //图文详情页模块 
+		{path:"/goods/goodscomment/:id",component:goodscomment},  
 	]
 	});
 

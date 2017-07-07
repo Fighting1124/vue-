@@ -19,7 +19,7 @@
 			</router-link>
 			<router-link class="mui-tab-item" to="/shopcar">
 				<span class="mui-icon mui-icon-contact">
-					<span class="mui-badge">0</span>
+					<span id="bage" class="mui-badge">0</span>
 				</span>
 				<span class="mui-tab-label">购物车</span>
 			</router-link>
@@ -32,6 +32,15 @@
 </template>
 
 <script>
+
+	import {vm,COUNTSTR} from "./kits/vm.js";
+	//利用vm.$on()来注册 COUNTSTR这个事件  
+		vm.$on(COUNTSTR,function (param) { 
+	// 由于 这里存在两个 vm 对象  所以只能通过dom的方式传值
+			var bage = document.getElementById("bage");
+			bage.innerText = parseInt(bage.innerText) + param;
+
+		 })
 
     export default{  // es6的导出对象的写法
         data(){  //等价于 es5的 data:function(){

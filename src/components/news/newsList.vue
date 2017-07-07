@@ -38,8 +38,10 @@ import common from "../../kits/common.js";
         },
         methods:{
             getNews(){
+               
                 var url = common.apidomain + "/api/getnewslist";
                 this.$http.get(url).then(function(res){
+                     
                     if(res.body.status != 0) {
                         Toast(res.body.message);
 

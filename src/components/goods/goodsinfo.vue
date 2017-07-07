@@ -13,12 +13,13 @@
                 市场价：<s>￥{{infos.market_price}}</s> &nbsp;&nbsp;
                 销售价：<span>￥{{infos.sell_price}}</span>
             </li>
-            <li>
+            <li class="inputli">
                 <span>购买数量：</span>
+                <inputNumber class="inputNumber" v-on:dataobj="getvalue"></inputNumber>
             </li>
             <li>
                 <mt-button type="primary" size="small">立即购买</mt-button>
-                <mt-button type="danger" size="small">加入购物车</mt-button>
+                <mt-button type="danger" size="small" @click="toshopcar">加入购物车</mt-button>
             </li>
         </ul>
     </div>
@@ -38,8 +39,12 @@
         </ul>
     </div>
     <div id="other">
-        <mt-button type="primary" size="large" class="message">图文详情</mt-button>
-        <mt-button type="danger" size="large">商品评论</mt-button>
+        <router-link v-bind="{to:'/goods/imgdesc/'+id}">
+            <mt-button type="primary" size="large" class="message">图文详情</mt-button>
+        </router-link>
+        <router-link v-bind="{to:'/goods/goodscomment/' +id}">
+            <mt-button type="danger" size="large">商品评论</mt-button>
+        </router-link>
     </div>
   </div>
 </template>
@@ -47,17 +52,26 @@
 import silder from "../subcom/silder.vue";
 import common from "../../kits/common.js";
 import { Toast } from 'mint-ui';
+//引入 vm 对象和 COUNTSTR常量
+import {vm,COUNTSTR} from "../../kits/vm.js";
+
+import inputNumber from "../subcom/inputNumber.vue";
+
+
+import {setItem,valueObj} from "../../kits/localSg.js";
 export default {
   
   data () {
     return {
         id:0,
         list:[],
-        infos:{}
+        infos:{},
+        value:1    //表示当前购买商品的数量
     };
   },
   components:{
-        silder
+        silder,
+        inputNumber
   },
   created(){
     this.id = this.$route.params.id;
@@ -89,8 +103,22 @@ export default {
               }
               this.infos = res.body.message[0];
             })
+      },
+      getvalue(value){   //获取inputNumber组件传递的值
+          this.value = value;
+      },
+      toshopcar(){
+
+            //触发事件
+            vm.$emit(COUNTSTR,this.value);
+            //将数据数据保存到 localstorage
+            valueObj.goodsid = this.id;
+            valueObj.count = this.value;
+            setItem(valueObj);
       }
-  }
+      
+  },
+  
 }
 </script>
 <style lang="css" scoped>
@@ -121,12 +149,22 @@ export default {
       list-style: none;
       margin: 10px 0px;
       font-size: 16px;
+      
   }
   
   #buy ul li:nth-of-type(1) span {
       
       color: #f40;
   }
+  #buy .inputli {
+      position:relative;
+  }
+  #buy .inputNumber {
+      position:absolute;
+      left: 85px;
+      top: 0px;
+  }
+
   #params h4 {
       color:aqua;
   }
